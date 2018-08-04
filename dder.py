@@ -1,4 +1,5 @@
 import argparse
+import dehumanize
 import progressbar
 import sys
 import time
@@ -111,12 +112,17 @@ def parse_arguments():
     parser.add_argument('--of',
         help    = 'Write to file `OF` instead of stdout.'
     )
+    parser.add_argument('--bs',
+        help    = 'Block size',
+        default = 512,
+        action  = dehumanize.DeHumanizeAction,
+    )
 
     return parser.parse_args()
 
 def main():
     args = parse_arguments()
-    dd = DD(1, args.if_, args.of)
+    dd = DD(args.bs, args.if_, args.of)
     dd.do_dis()
 
 if __name__ == '__main__':
